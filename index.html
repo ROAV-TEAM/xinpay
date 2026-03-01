@@ -1,328 +1,971 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XIN PAY EXCHANGE · home</title>
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XIN PAY EXCHANGE · Home</title>
+  <meta name="description" content="XIN PAY EXCHANGE — Next-gen crypto &amp; gaming platform.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- base style (provided) -->
   <link rel="stylesheet" href="style.css">
-  <!-- additional nav / layout tweaks (preserving theme) -->
   <style>
-    /* additional navigation & home styles – extend glass/cyan theme */
+    body {
+      display: block;
+    }
+
+    .page-wrapper {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ─── Navbar ─── */
     .navbar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      background: rgba(8, 15, 26, 0.7);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 80px;
-      padding: 0.7rem 1.8rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      position: relative;
-      z-index: 25;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.5rem;
+      position: sticky;
+      top: 0.5rem;
+      z-index: 50;
+      animation: glass-appear 0.5s ease;
+      overflow: visible;
     }
-    .nav-logo {
+
+    .navbar::before {
+      pointer-events: none;
+    }
+
+    .nav-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1.7rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #fff, #a6f0ff);
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-brand-icon i {
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .nav-brand-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
     }
-    .nav-logo i {
-      font-size: 2rem;
-      color: cyan;
-      -webkit-text-fill-color: initial;
-      filter: drop-shadow(0 0 8px cyan);
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+      position: relative;
+      z-index: 5;
     }
-    .nav-tabs {
+
+    .nav-toggle:hover {
+      border-color: rgba(168, 85, 247, 0.3);
+      color: var(--accent-1);
+    }
+
+    .nav-links {
       display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.2rem;
     }
-    .nav-tab {
-      padding: 0.7rem 1.5rem;
-      border-radius: 40px;
+
+    .nav-link {
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-sm);
       font-weight: 500;
-      color: #c0d4ff;
-      transition: 0.2s;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      transition: all 0.25s ease;
       text-decoration: none;
       border: 1px solid transparent;
     }
-    .nav-tab:hover {
-      background: rgba(0, 255, 255, 0.1);
-      border-color: rgba(0, 255, 255, 0.4);
-      color: white;
-      transform: translateY(-2px);
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
     }
-    .nav-tab.active {
-      background: rgba(0, 255, 255, 0.15);
-      border: 1px solid cyan;
-      color: white;
-      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+
+    .nav-link.active {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.25);
+      color: var(--text-primary);
     }
-    .place-order-btn {
-      background: linear-gradient(145deg, #00c6ff, #0072ff);
+
+    .nav-link i {
+      margin-right: 4px;
+      font-size: 0.72rem;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
       border: none;
-      padding: 0.7rem 2rem;
-      border-radius: 60px;
-      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.8rem;
       color: white;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 5px 20px rgba(0,160,255,0.5);
-      transition: 0.2s;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.2);
+      gap: 5px;
+      box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+      transition: all 0.25s ease;
+      margin-left: 0.3rem;
     }
-    .place-order-btn:hover {
-      transform: scale(1.03);
-      background: linear-gradient(145deg, #1ad0ff, #0088ff);
-      box-shadow: 0 10px 30px rgba(0,200,255,0.7);
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
     }
-    /* hero */
-    .hero-section {
-      display: flex;
-      flex-wrap: wrap;
+
+    /* ─── Hero ─── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
       align-items: center;
-      gap: 2.5rem;
-      margin: 2.5rem 0 4rem;
+      margin: 1.5rem 0 3rem;
+      animation: fade-up 0.6s ease;
     }
-    .hero-text {
-      flex: 1 1 300px;
-    }
-    .hero-text h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      line-height: 1.2;
-      background: linear-gradient(145deg, #ffffff, #aaffff, #90d0ff);
+
+    .hero-content h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 20%, rgba(168, 85, 247, 0.8) 50%, rgba(6, 182, 212, 0.8) 80%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .hero-text .glow {
-      text-shadow: 0 0 20px cyan;
+
+    .hero-content p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      max-width: 420px;
     }
-    .hero-text p {
-      font-size: 1.2rem;
-      color: #b0cae8;
-      margin: 1.5rem 0 2rem;
-      max-width: 550px;
-    }
-    .hero-image {
-      flex: 1 1 300px;
-      border-radius: 40px;
-      overflow: hidden;
-      border: 2px solid rgba(0,255,255,0.3);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 40px rgba(0,255,255,0.3);
-    }
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: brightness(0.9) contrast(1.1);
-    }
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
+
+    .hero-btns {
       display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-primary {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
       align-items: center;
-      gap: 15px;
+      gap: 7px;
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
+      transition: all 0.3s ease;
     }
-    .section-title i {
-      color: cyan;
-      font-size: 2.2rem;
-      filter: drop-shadow(0 0 8px cyan);
+
+    .hero-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(168, 85, 247, 0.45);
     }
-    .about-card {
-      background: rgba(12, 22, 38, 0.6);
+
+    .hero-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.7rem 1.6rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-img-main {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-img-main img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-img-main:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Floating stats */
+    .hero-stat {
+      position: absolute;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.72rem;
+      font-weight: 600;
+      animation: soft-float 3s ease-in-out infinite;
+    }
+
+    .hero-stat-1 {
+      bottom: -12px;
+      left: -10px;
+      background: rgba(168, 85, 247, 0.2);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(0, 255, 255, 0.25);
-      border-radius: 48px;
-      padding: 2.5rem;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      color: #c084fc;
+      animation-delay: 0s;
+    }
+
+    .hero-stat-2 {
+      top: -12px;
+      right: -10px;
+      background: rgba(6, 182, 212, 0.2);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: #67e8f9;
+      animation-delay: -1.5s;
+    }
+
+    /* ─── Stats Row ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
       margin-bottom: 3rem;
     }
+
+    .stat-card {
+      padding: 1.2rem;
+      text-align: center;
+      animation: glass-appear 0.6s ease;
+    }
+
+    .stat-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .stat-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── Section Heading ─── */
+    .section-heading {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-1);
+      margin-bottom: 0.5rem;
+      background: rgba(168, 85, 247, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .section-heading h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ─── About Section ─── */
+    .about-section {
+      margin-bottom: 3rem;
+    }
+
+    .about-section>p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+
+    .about-item {
+      padding: 1.3rem 1.1rem;
+      transition: all 0.3s ease;
+      animation: fade-up 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .about-item:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .about-item:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .about-item:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .about-item:hover {
+      border-color: rgba(168, 85, 247, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(168, 85, 247, 0.1);
+    }
+
+    .about-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(6, 182, 212, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .about-icon i {
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-item h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--text-primary);
+    }
+
+    .about-item p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── Feature Grid ─── */
+    .features-section {
+      margin-bottom: 3rem;
+    }
+
     .feature-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .feature-card {
+      padding: 1.3rem 1.1rem;
+      transition: all 0.3s ease;
+      animation: fade-up 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .feature-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .feature-card:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .feature-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .feature-card:nth-child(4) {
+      animation-delay: 0.25s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(168, 85, 247, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .feature-emoji {
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-card p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── Partner / Gaming Section ─── */
+    .partner-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      animation: glass-appear 0.7s ease;
+    }
+
+    .partner-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .partner-img img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .partner-img:hover img {
+      transform: scale(1.05);
+    }
+
+    .partner-content h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .partner-content h2 i {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-right: 6px;
+    }
+
+    .partner-content p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── Crypto Logos Marquee ─── */
+    .crypto-marquee {
+      margin-bottom: 3rem;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .crypto-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      opacity: 0.5;
+      transition: all 0.3s;
+      filter: grayscale(0.5);
+    }
+
+    .crypto-logo:hover {
+      opacity: 1;
+      filter: grayscale(0);
+      transform: scale(1.15);
+    }
+
+    /* ─── Footer ─── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       margin-top: 2rem;
     }
-    .feature-item {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1.5px solid rgba(0, 255, 255, 0.3);
-      border-radius: 36px;
-      padding: 2rem 1.5rem;
-      backdrop-filter: blur(8px);
-      transition: 0.2s;
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
-    .feature-item:hover {
-      border-color: cyan;
-      box-shadow: 0 0 30px rgba(0,255,255,0.2);
-      transform: translateY(-6px);
+
+    .footer-links i {
+      color: var(--accent-1);
+      margin-right: 4px;
+      opacity: 0.6;
     }
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1.2rem;
-      color: cyan;
+
+    .site-footer>p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      opacity: 0.6;
     }
-    .feature-item h3 {
-      font-size: 1.7rem;
-      font-weight: 600;
-      margin-bottom: 0.7rem;
-    }
-    .feature-item p {
-      color: #a2b9db;
-    }
-    .footer-note {
-      text-align: center;
-      margin-top: 5rem;
-      color: #62789e;
-      border-top: 1px dashed rgba(0,255,255,0.2);
-      padding: 2rem 0;
-    }
-    @media (max-width: 700px) {
-      .navbar {
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: rgba(10, 1, 24, 0.95);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: var(--radius-md);
+        padding: 0.6rem;
         flex-direction: column;
+        gap: 0.2rem;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        z-index: 51;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-link {
+        text-align: center;
+        padding: 0.5rem 0.8rem;
+      }
+
+      .nav-cta {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 1rem 0 2rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 0.85rem;
+      }
+
+      .hero-img-main img {
+        height: 200px;
+      }
+
+      .hero-stat {
+        display: none;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      .stat-number {
+        font-size: 1.2rem;
+      }
+
+      .stat-label {
+        font-size: 0.65rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .partner-section {
+        grid-template-columns: 1fr;
         gap: 1rem;
+      }
+
+      .partner-img img {
+        height: 140px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-wrapper {
+        padding: 0.6rem;
+      }
+
+      .navbar {
+        padding: 0.5rem 0.7rem;
+        border-radius: var(--radius-md);
+        top: 0.3rem;
+      }
+
+      .nav-brand-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+      }
+
+      .nav-brand-icon i {
+        font-size: 0.8rem;
+      }
+
+      .nav-brand-text {
+        font-size: 0.92rem;
+      }
+
+      .hero-content h1 {
+        font-size: 1.7rem;
+      }
+
+      .hero-content p {
+        font-size: 0.8rem;
+      }
+
+      .hero-btns .hero-btn-primary,
+      .hero-btns .hero-btn-secondary {
+        font-size: 0.8rem;
+        padding: 0.6rem 1.2rem;
+      }
+
+      .hero-img-main img {
+        height: 170px;
+      }
+
+      .stats-row {
+        gap: 0.4rem;
+      }
+
+      .stat-card {
+        padding: 0.9rem 0.6rem;
+      }
+
+      .stat-number {
+        font-size: 1.1rem;
+      }
+
+      .section-heading h2 {
+        font-size: 1.3rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-item {
         padding: 1rem;
       }
-      .hero-text h1 {
-        font-size: 2.5rem;
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card {
+        padding: 1rem;
+      }
+
+      .partner-section {
+        padding: 1rem;
+        border-radius: var(--radius-lg);
+      }
+
+      .partner-content h2 {
+        font-size: 1.05rem;
+      }
+
+      .crypto-marquee {
+        gap: 1rem;
+      }
+
+      .crypto-logo {
+        width: 28px;
+        height: 28px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .section-heading .label {
+        font-size: 0.65rem;
       }
     }
   </style>
 </head>
-<body>
-  <!-- cyber grid + glow (from style.css) -->
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
-  <div class="bg-glow bg-glow-left"></div>
 
-  <!-- main content (high z-index) -->
-  <div class="main-app visible" style="max-width: 1300px; width: 100%; margin: 1.5rem auto; position: relative; z-index: 20;">
-    <!-- navigation -->
-    <nav class="navbar">
-      <div class="nav-logo">
-        <i class="fas fa-coins"></i>
-        <span>XIN PAY <span style="font-weight: 400;">EXCHANGE</span></span>
+<body>
+  <!-- Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <div class="page-wrapper">
+
+    <!-- ═══ Navbar ═══ -->
+    <nav class="navbar liquid-glass" id="navbar">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-brand-icon"><i class="fas fa-coins"></i></div>
+        <span class="nav-brand-text">XIN PAY</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navMenu">
+        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i>Home</a>
+        <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i>About</a>
+        <a href="#services" class="nav-link"><i class="fas fa-cubes"></i>Services</a>
+        <a href="#gaming" class="nav-link"><i class="fas fa-gamepad"></i>Gaming</a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i>Contact</a>
+        <a href="order.html" class="nav-cta"><i class="fas fa-bolt"></i> Place Order</a>
       </div>
-      <div class="nav-tabs">
-        <a href="index.html" class="nav-tab active"><i class="fas fa-home" style="margin-right: 6px;"></i>Home</a>
-        <a href="#about" class="nav-tab"><i class="fas fa-info-circle" style="margin-right: 6px;"></i>About</a>
-        <a href="#services" class="nav-tab"><i class="fas fa-cubes" style="margin-right: 6px;"></i>Services</a>
-        <a href="#gaming" class="nav-tab"><i class="fas fa-gamepad" style="margin-right: 6px;"></i>Gaming</a>
-        <a href="#contact" class="nav-tab"><i class="fas fa-envelope" style="margin-right: 6px;"></i>Contact</a>
-      </div>
-      <a href="order.html" class="place-order-btn"><i class="fas fa-bolt"></i> place order →</a>
     </nav>
 
-    <!-- hero -->
-    <div class="hero-section">
-      <div class="hero-text">
-        <h1>trade · earn ·<br><span class="glow">game with XIN</span></h1>
-        <p><i class="fas fa-circle" style="color: cyan; font-size: 0.6rem; vertical-align: middle;"></i>  crypto meets gaming. fast, secure, borderless.</p>
-        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-          <a href="order.html" class="action-btn" style="background: linear-gradient(145deg, #00c6ff, #0072ff); border: none;"><i class="fas fa-rocket"></i> start trading</a>
-          <a href="#about" class="action-btn" style="background: transparent;"><i class="fas fa-chevron-circle-down"></i> explore</a>
+    <!-- ═══ Hero ═══ -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Trade With XINPAY </h1>
+        <p>Next-gen crypto platform where trading meets gaming. Fast execution, zero hidden fees, and borderless
+          transactions.</p>
+        <div class="hero-btns">
+          <a href="order.html" class="hero-btn-primary"><i class="fas fa-rocket"></i> Start Trading</a>
+          <a href="#about" class="hero-btn-secondary"><i class="fas fa-arrow-down"></i> Explore</a>
         </div>
       </div>
-      <div class="hero-image">
-        <!-- internet image : crypto + gaming vibe -->
-        <img src="https://images.unsplash.com/photo-1640161704729-cd1321436f9b?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="crypto trading dashboard" loading="lazy">
+      <div class="hero-visual">
+        <div class="hero-img-main liquid-glass" style="padding: 0; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=800&auto=format&fit=crop&q=80"
+            alt="crypto trading">
+        </div>
+        <div class="hero-stat hero-stat-1">
+          <i class="fas fa-arrow-up" style="color: #34d399; margin-right: 4px;"></i> +24.5% today
+        </div>
+        <div class="hero-stat hero-stat-2">
+          <i class="fas fa-users" style="margin-right: 4px;"></i> 12K+ traders
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Stats ═══ -->
+    <div class="stats-row">
+      <div class="stat-card liquid-glass">
+        <div class="stat-number">$120M+</div>
+        <div class="stat-label">Volume 24h</div>
+      </div>
+      <div class="stat-card liquid-glass">
+        <div class="stat-number">0.01%</div>
+        <div class="stat-label">Trading Fee</div>
+      </div>
+      <div class="stat-card liquid-glass">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Trading Pairs</div>
       </div>
     </div>
 
-    <!-- about section (id for tab) -->
-    <div id="about" class="about-card" style="scroll-margin-top: 2rem;">
-      <div class="section-title">
-        <i class="fas fa-cyan"></i>
-        <span>⚡ about XIN PAY EXCHANGE</span>
+    <!-- ═══ About ═══ -->
+    <section id="about" class="about-section" style="scroll-margin-top: 5rem;">
+      <div class="section-heading">
+        <div class="label"><i class="fas fa-bolt"></i> About Us</div>
+        <h2>Why XIN PAY EXCHANGE?</h2>
       </div>
-      <p style="font-size: 1.2rem; color: #d0e2ff; margin-bottom: 1.2rem;">We are a next‑gen crypto platform built for traders and gamers. <br> partnered with leading gaming companies to bring blockchain into play-to-earn.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
-        <div style="flex: 1 1 200px; background: rgba(0,255,255,0.05); border-radius: 32px; padding: 1.5rem; border: 1px dashed rgba(0,255,255,0.3);">
-          <i class="fas fa-chart-line" style="font-size: 2rem; color: cyan;"></i>
-          <h3 style="margin: 1rem 0 0.5rem;">crypto trade</h3>
-          <p style="color: #b0c6e5;">low fees, deep liquidity, 100+ pairs. lightning execution.</p>
+      <p>We are a next-gen crypto platform built for traders and gamers. Partnered with leading gaming companies to
+        bring blockchain into play-to-earn ecosystems.</p>
+      <div class="about-grid">
+        <div class="about-item liquid-glass">
+          <div class="about-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Crypto Trade</h3>
+          <p>Low fees, deep liquidity, 100+ pairs. Lightning fast execution.</p>
         </div>
-        <div style="flex: 1 1 200px; background: rgba(0,255,255,0.05); border-radius: 32px; padding: 1.5rem; border: 1px dashed rgba(0,255,255,0.3);">
-          <i class="fas fa-dice-d6" style="font-size: 2rem; color: cyan;"></i>
-          <h3 style="margin: 1rem 0 0.5rem;">gaming hub</h3>
-          <p style="color: #b0c6e5;">direct partnerships with top game studios. earn while you play.</p>
+        <div class="about-item liquid-glass">
+          <div class="about-icon"><i class="fas fa-dice-d6"></i></div>
+          <h3>Gaming Hub</h3>
+          <p>Direct partnerships with top game studios. Earn while you play.</p>
         </div>
-        <div style="flex: 1 1 200px; background: rgba(0,255,255,0.05); border-radius: 32px; padding: 1.5rem; border: 1px dashed rgba(0,255,255,0.3);">
-          <i class="fas fa-shield-halved" style="font-size: 2rem; color: cyan;"></i>
-          <h3 style="margin: 1rem 0 0.5rem;">secure vault</h3>
-          <p style="color: #b0c6e5;">multi‑sig, cold storage, real‑time proof of reserves.</p>
+        <div class="about-item liquid-glass">
+          <div class="about-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Secure Vault</h3>
+          <p>Multi-sig, cold storage, real-time proof of reserves.</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- services / feature grid (services & gaming combined) -->
-    <div id="services" style="scroll-margin-top: 2rem;">
-      <div class="section-title">
-        <i class="fas fa-crown"></i>
-        <span>why XIN PAY</span>
+    <!-- ═══ Services / Features ═══ -->
+    <section id="services" class="features-section" style="scroll-margin-top: 5rem;">
+      <div class="section-heading">
+        <div class="label"><i class="fas fa-crown"></i> Features</div>
+        <h2>Built for the future</h2>
       </div>
       <div class="feature-grid">
-        <div class="feature-item">
-          <i class="fas fa-bolt feature-icon"></i>
-          <h3>instant settlement</h3>
-          <p>Layer‑2 speed & near‑zero gas, optimised for microtransactions.</p>
+        <div class="feature-card liquid-glass">
+          <span class="feature-emoji">⚡</span>
+          <h3>Instant Settlement</h3>
+          <p>Layer-2 speed & near-zero gas, optimised for microtransactions.</p>
         </div>
-        <div class="feature-item">
-          <i class="fas fa-headset feature-icon"></i>
-          <h3>24/7 support</h3>
-          <p>real humans + AI, discord & telegram, we're always here.</p>
+        <div class="feature-card liquid-glass">
+          <span class="feature-emoji">🎧</span>
+          <h3>24/7 Support</h3>
+          <p>Real humans + AI, Discord & Telegram, we're always online.</p>
         </div>
-        <div class="feature-item" id="gaming">
-          <i class="fas fa-gamepad feature-icon"></i>
-          <h3>gaming SDK</h3>
-          <p>plug our widget into your game — in‑game purchases with crypto.</p>
+        <div class="feature-card liquid-glass" id="gaming">
+          <span class="feature-emoji">🎮</span>
+          <h3>Gaming SDK</h3>
+          <p>Plug our widget into your game — in-game purchases with crypto.</p>
         </div>
-        <div class="feature-item">
-          <i class="fas fa-gem feature-icon"></i>
-          <h3>loyalty rewards</h3>
-          <p>cashback & exclusive NFTs for active traders & gamers.</p>
+        <div class="feature-card liquid-glass">
+          <span class="feature-emoji">💎</span>
+          <h3>Loyalty Rewards</h3>
+          <p>Cashback & exclusive NFTs for active traders & gamers.</p>
         </div>
       </div>
+    </section>
+
+    <!-- ═══ Crypto Logos ═══ -->
+    <div class="crypto-marquee liquid-glass">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/1094/large/tron-logo.png" alt="TRX">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/6319/large/usdc.png" alt="USDC">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="SOL">
+      <img class="crypto-logo" src="https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png"
+        alt="XRP">
     </div>
 
-    <!-- extra gaming partnership highlight -->
-    <div style="margin: 4rem 0; background: rgba(0, 30, 30, 0.5); border-radius: 60px; padding: 2rem; border: 1px solid rgba(0,255,255,0.3);">
-      <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
-        <div style="flex: 1 1 200px;">
-          <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="gaming setup" style="width:100%; border-radius: 40px; border: 2px solid cyan;">
-        </div>
-        <div style="flex: 2 1 300px;">
-          <h2 style="font-size: 2.2rem;"><i class="fas fa-handshake" style="color: cyan;"></i> official gaming partner</h2>
-          <p style="color: #b5d0ff; font-size: 1.2rem;">XIN PAY is integrated with <strong>CyberPlay studios, Vortex games, and 5 more</strong> – deposit & withdraw in-game assets seamlessly.</p>
-          <a href="#" style="margin-top: 1.5rem; display: inline-block;" class="action-btn"><i class="fas fa-trophy"></i> view partnerships</a>
-        </div>
+    <!-- ═══ Partner ═══ -->
+    <section class="partner-section liquid-glass">
+      <div class="partner-img">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=80"
+          alt="gaming esports">
       </div>
-    </div>
+      <div class="partner-content">
+        <h2><i class="fas fa-handshake"></i> Official Gaming Partner</h2>
+        <p>XIN PAY is integrated with <strong>CyberPlay Studios, Vortex Games, and 5 more</strong> — deposit & withdraw
+          in-game assets seamlessly.</p>
+        <a href="#" class="action-btn"><i class="fas fa-trophy"></i> View Partnerships</a>
+      </div>
+    </section>
 
-    <!-- contact area (footer style) -->
-    <div id="contact" style="scroll-margin-top: 3rem;" class="footer-note">
-      <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2rem;">
-        <span><i class="fab fa-discord" style="color: cyan;"></i> XINpay_gg</span>
-        <span><i class="fab fa-telegram" style="color: cyan;"></i> @xinpay_ex</span>
-        <span><i class="fas fa-envelope" style="color: cyan;"></i> support@xinpay.gg</span>
+    <!-- ═══ Footer ═══ -->
+    <footer id="contact" style="scroll-margin-top: 5rem;" class="site-footer">
+      <div class="footer-links">
+        <span><i class="fab fa-discord"></i> XINpay_gg</span>
+        <span><i class="fab fa-telegram"></i> @xinpay_ex</span>
+        <span><i class="fas fa-envelope"></i> support@xinpay.gg</span>
       </div>
-      <p>© 2025 XIN PAY EXCHANGE — where crypto & gaming converge. all systems glowing.</p>
-    </div>
+      <p>© 2025 XIN PAY EXCHANGE — where crypto & gaming converge.</p>
+    </footer>
   </div>
+
+  <script>
+    // Hamburger toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      const icon = navToggle.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+    document.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        const icon = navToggle.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+  </script>
 </body>
+
 </html>
